@@ -57,3 +57,19 @@ alias mygit=/path/to/your/repo/your_program.sh
 mkdir -p /tmp/testing && cd /tmp/testing
 mygit init
 ```
+
+**Personal Notes:**
+1.1) **Read a Blob Object:**
+   a) Stored as a file in .git/objects.
+   b) Contains a header and the blob content, compressed using Zlib.
+   c) Format (after decompression): blob <size>\0<content>
+
+1.2) The cat-file Command
+Used to view the type, size, and content of an object.
+Example usage: git cat-file -p <blob_sha>
+
+1.3) Implementation Steps
+Read the blob object file from .git/objects.
+Decompress the file using Zlib.
+Extract the content from the decompressed data.
+Print the content to stdout without a newline.
