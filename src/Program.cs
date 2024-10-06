@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.IO.Compression;
+using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
 if (args.Length < 1)
 {
@@ -34,10 +35,10 @@ else if (command == "cat-file" && args.Length == 3 && args[1] == "-p")
         Console.WriteLine($"Object {blobSha} not found.");
         return;
     }
-    
+
     byte[] compressedData = File.ReadAllBytes(objectFile);
     using (var compressedStream = new MemoryStream(compressedData))
-    using (var zlibStream = new DeflateStream(compressedStream, CompressionMode.Decompress))
+    using (var zlibStream = new InflaterInputStream(compressedStream))
     using (var decompressedStream = new MemoryStream())
     {
         zlibStream.CopyTo(decompressedStream);
@@ -47,7 +48,6 @@ else if (command == "cat-file" && args.Length == 3 && args[1] == "-p")
         string content = blobData.Substring(nullIndex + 1);
         Console.Write(content);
     }
-    
 }
 else
 {
