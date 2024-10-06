@@ -10,7 +10,7 @@ if (args.Length < 1)
 }
 
 // You can use print statements as follows for debugging, they'll be visible when running tests.
-Console.WriteLine("Logs from your program will appear here!");
+//Console.WriteLine("Logs from your program will appear here!");
 
 string command = args[0];
 
